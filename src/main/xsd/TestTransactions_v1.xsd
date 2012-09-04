@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 sp1 (http://www.altova.com) by Sesh (EMC) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:data="http://mycompany.com/it/enterprise/data/v1" xmlns:msg="http://mycompany.com/it/enterprise/msg/v1" targetNamespace="http://mycompany.com/it/enterprise/data/v1" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:complexType name="TestServiceRequestType">
+		<xsd:sequence>
+			<xsd:element name="Document">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Id" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="Type" type="xsd:string" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="TestServiceResponseType">
+		<xsd:sequence>
+			<xsd:element name="Document">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Result" type="xsd:string" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>

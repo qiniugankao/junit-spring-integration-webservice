@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:int-ws="http://www.springframework.org/schema/integration/ws"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration/ws http://www.springframework.org/schema/integration/ws/spring-integration-ws.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<jdbc:initialize-database data-source="dataSource">
+		<jdbc:script location="classpath:config/test-webservice-schema.sql" />
+	</jdbc:initialize-database>
+
+	<bean id="sqlMapClientTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+	 
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:META-INF/spring/test-webservice/test-webservice-sql-map-config.xml" />
+	</bean>
+	 
+ 	 <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+		<property name="url" value="jdbc:hsqldb:mem:testdb;sql.enforce_strict_size=true" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+	</bean> 
+  
+ 	<bean
+		 class="org.springframework.ws.server.endpoint.mapping.PayloadRootQNameEndpointMapping">
+ 		<property name="endpointMap">
+			<map>
+				<entry key="{http://mycompany.com/it/enterprise/contract/TestService/v1}TestServiceRequest" value-ref="TestBatchEndpoint" />
+			</map>
+		</property>
+	</bean>
+ 
+ 	<int-ws:inbound-gateway id="TestBatchEndpoint" reply-channel="test.batch.webservice.out" request-channel="test.batch.webservice.in" />
+ 
+ 	 <bean id="marshaller"  class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+	      	<property name="contextPath" value="com.mycompany.it.enterprise.contract.testservice.v1" />
+	      										
+	</bean>
+ 
+ 	<bean id="testServiceActivator" class="com.mycompany.it.eis.webservice.ws.TestServiceActivator" />
+
+	<bean id="resultTransformer" class="org.springframework.integration.xml.transformer.ResultToStringTransformer"/>
+</beans>

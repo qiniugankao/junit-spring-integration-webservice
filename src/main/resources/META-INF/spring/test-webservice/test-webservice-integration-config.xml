@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-ws="http://www.springframework.org/schema/integration/ws"
+	xmlns:int-xml="http://www.springframework.org/schema/integration/xml"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration/xml http://www.springframework.org/schema/integration/xml/spring-integration-xml-2.1.xsd
+		http://www.springframework.org/schema/integration/ws http://www.springframework.org/schema/integration/ws/spring-integration-ws.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	<description><![CDATA[
+		This is the main webservice integration definition file
+    ]]></description>
+
+	<int:wire-tap channel="logger" pattern="test*" />
+	<int:logging-channel-adapter id="logger"
+		level="INFO" log-full-message="true" />
+
+	<int:channel id="test.batch.webservice.in">
+	</int:channel>
+	
+	<int:channel id="test.batch.webservice.unmarshalling.in">
+	</int:channel>
+	
+	<int:channel id="test.batch.webservice.unmarshalling.out">
+	
+	</int:channel>
+	
+	<int:channel id="test.batch.webservice.marshalling.in">
+	</int:channel>
+
+		
+	<int:channel id="test.batch.webservice.out">
+	<int:queue/>
+	</int:channel>
+	
+<!-- 	<int:gateway id="test.batch.webservice.testGateway"
+		service-interface="com.emc.it.eis.test.batch.webservice.ws.testGateway"
+		default-request-channel="test.batch.webservice.in" default-reply-channel="test.batch.webservice.out" />
+ -->	
+	<int:bridge  input-channel="test.batch.webservice.in" output-channel="test.batch.webservice.unmarshalling.in"></int:bridge>	
+
+	<int-xml:unmarshalling-transformer id="defaultUnmarshaller"
+    input-channel="test.batch.webservice.unmarshalling.in"
+    output-channel="test.batch.webservice.unmarshalling.out"
+    unmarshaller="marshaller"/>
+	
+	 
+	<int:service-activator
+		id="test.batch.webservice.activator"
+		input-channel="test.batch.webservice.unmarshalling.out"
+		ref="testServiceActivator" output-channel="test.batch.webservice.marshalling.in">
+		</int:service-activator>
+	 
+	<int-xml:marshalling-transformer
+     input-channel="test.batch.webservice.marshalling.in"
+     output-channel="test.batch.webservice.out"
+     marshaller="marshaller"
+     result-transformer="resultTransformer" />
+	 
+</beans>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:data="http://mycompany.com/it/enterprise/data/v1" xmlns:msg="http://mycompany.com/it/enterprise/msg/v1" xmlns:svc="http://mycompany.com/it/enterprise/contract/TestService/v1" targetNamespace="http://mycompany.com/it/enterprise/contract/TestService/v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:import namespace="http://mycompany.com/it/enterprise/data/v1" schemaLocation="TestTransactions_v1.xsd"/>
+	<xsd:element name="TestServiceRequest" type="data:TestServiceRequestType"/>
+	<xsd:element name="TestServiceResponse" type="data:TestServiceResponseType"/>
+</xsd:schema>
