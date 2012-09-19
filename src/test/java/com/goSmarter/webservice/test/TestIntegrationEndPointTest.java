@@ -1,4 +1,7 @@
-package com.mycompany.it.eis.webservice.test;
+package com.goSmarter.webservice.test;
+
+import static org.springframework.ws.test.server.RequestCreators.withPayload;
+import static org.springframework.ws.test.server.ResponseMatchers.payload;
 
 import javax.xml.transform.Source;
 
@@ -11,8 +14,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.ws.test.server.MockWebServiceClient;
 import org.springframework.xml.transform.StringSource;
-import static org.springframework.ws.test.server.RequestCreators.withPayload;
-import static org.springframework.ws.test.server.ResponseMatchers.payload;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({

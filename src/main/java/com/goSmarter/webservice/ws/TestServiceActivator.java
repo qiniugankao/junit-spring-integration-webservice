@@ -1,15 +1,16 @@
-package com.mycompany.it.eis.webservice.ws;
+package com.goSmarter.webservice.ws;
 
 import javax.xml.bind.JAXBElement;
+
+import net.gosmarter.it.enterprise.data.v1.TestServiceRequestType;
+import net.gosmarter.it.enterprise.data.v1.TestServiceResponseType;
+import net.gosmarter.it.enterprise.data.v1.TestServiceResponseType.Document;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 
-import com.mycompany.it.eis.webservice.dto.TestObject;
-import com.mycompany.it.enterprise.data.v1.TestServiceRequestType;
-import com.mycompany.it.enterprise.data.v1.TestServiceResponseType;
-import com.mycompany.it.enterprise.data.v1.TestServiceResponseType.Document;
+import com.goSmarter.webservice.dto.TestObject;
 
 /**
  * 

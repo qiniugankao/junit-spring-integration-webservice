@@ -1,4 +1,4 @@
-package com.mycompany.it.eis.webservice.dto;
+package com.goSmarter.webservice.dto;
 
 public class TestObject {
 
